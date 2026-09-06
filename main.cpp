@@ -1,3 +1,13 @@
+/*******************************************************************************
+NAME -    Charles Cole
+
+CLASS -   Project 1 CS 210 - Chada Tech Clock 
+
+PURPOSE - Create a clock that can be controlled by user input from menu,
+          rendering the output to the console window, accept next command until
+          user selects 'exit', then end the program.
+*********************************************************************************/
+
 #include "Clock.h" // Reference clock header file
 #include <iostream> // Reference input/output stream library
 #include <string> // Bring string in to use with my functions
@@ -22,14 +32,17 @@ int main() {
 	initalizeClock(); // Call function to initialize clock
 
 	while (userSelection != 4) {
-		system("cls"); // Clear console window
 
+		// Update display
+		system("cls"); // Clear console window
 		cout << clockFace() << endl; // Call function to draw clock
 		cout << drawMenu() << endl; // Call function to draw menu
 
-		cin >> userSelection; // Capture user input
+		// Capture user input
+		cin >> userSelection;
 
-		switch (userSelection) { // Evaluate user input
+		// Evaluate user input
+		switch (userSelection) {
 			case 1:
 				myClock.addHour(); // addHour() function of myClock
 				break;
@@ -54,8 +67,7 @@ void initalizeClock() {
 	cout << "Enter the seconds 0-59:"; // Ask for seconds
 	cin >> seconds; // Get seconds
 
-	// Initialize myClock with user input
-	myClock = Clock(hours, minutes, seconds); 
+	myClock = Clock(hours, minutes, seconds); // Initialize myClock
 }
 
 // Print clock face to console
