@@ -44,8 +44,8 @@ int main() {
 	return 0;
 }
 
-// Function definitions
-
+// Creates clock object and sets the h/m/s after requesting them
+// from user when program starts
 void initalizeClock() {
 	cout << "Enter the hours 0-23:"; // Ask for hours
 	cin >> hours; // Get hours
