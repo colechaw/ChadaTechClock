@@ -1,8 +1,6 @@
 #pragma once
 #include <string> // Use string object
 
-using namespace std; // Shortcut to avoid typing std::
-
 class Clock
 {
 	private:
@@ -16,7 +14,7 @@ class Clock
 		void addHour();
 		void addMinute();
 		void addSecond();	
-		string getTime24();
-		string getTime12();
+		std::string getTime24();
+		std::string getTime12();
 };
 
