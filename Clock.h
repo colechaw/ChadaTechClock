@@ -1,3 +1,12 @@
+/*******************************************************************************
+NAME -    Charles Cole
+
+CLASS -   Project 1 CS 210 - Chada Tech Clock
+
+PURPOSE - *.h file for clock.cpp, it defines the variables and methods the object
+          will use.
+*********************************************************************************/
+
 #pragma once
 #include <string> // Use string object
 
@@ -7,6 +16,7 @@ class Clock
 		int hours;
 		int minutes;
 		int seconds;
+		std::string composeResult(int hours, int minutes, int seconds, std::string prefix);
 
 	public:
 		Clock(int hours = 0, int minutes = 0, int seconds = 0);

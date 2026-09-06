@@ -1,77 +1,84 @@
-#include "Clock.h" // Reference clock header file
-#include <iomanip> // Reference I/O object
-#include <sstream> // Reference string stream object
+/*******************************************************************************
+NAME -    Charles Cole
 
-using namespace std; // Shortcut to avoid typing std::
+CLASS -   Project 1 CS 210 - Chada Tech Clock
+
+PURPOSE - Clock object to be used in the main.cpp, isolates the functions and
+          hides them from the main applications.
+*********************************************************************************/
+
+#include "Clock.h" // Reference Clock header file
+#include <iomanip> // We will use std::setfill(), ect from Standard library
+#include <sstream> // We will use ostringstream from Standard library
 
 // Constructor
 Clock::Clock(int hours, int minutes, int seconds) {
-	this->hours = hours;
-	this->minutes = minutes;
-	this->seconds = seconds;
+	this->hours = hours; // set hours variable
+	this->minutes = minutes; // set minutes variable
+	this->seconds = seconds; // set seconds varialbe
 }
 
+// Function to increase clock by one hour
 void Clock::addHour() {
-		// add one hour
-		hours ++;
-		// if the hour count = 24, set hours to 0
+		hours ++; // Add one hour
+
+		// If hours = 24, roll hours back to 0
 		if (hours == 24) {
 			hours = 0;
 		}
 	}
 
-	void Clock::addMinute() {
-		// add one minute
-		minutes ++;
-		if (minutes == 60) {
-			minutes = 0;
-			// if the minute count = 60, add an hour and set minutes to 0
-			addHour();
-		}
+// Function to increase clock by one minute
+void Clock::addMinute() {
+	minutes ++; // Add one minute
+
+	// If minutes = 60, roll back to 0 and call addHour()
+	if (minutes == 60) {
+		minutes = 0;
+		addHour(); // This should be handled in addHour()
+	}
+}
+
+// Function to increase clock by one second
+void Clock::addSecond() {
+	seconds ++; // Add one second
+
+	// If the second count = 60, roll seconds to 0 and call addMinute()
+	if (seconds == 60) {
+		seconds = 0;
+		addMinute(); // This function should be handled in addMinute()
+	}
+}
+
+
+std::string Clock::getTime24() {
+	return composeResult(hours, minutes, seconds, "");
+}
+
+std::string Clock::getTime12() {
+	int tempHour = hours; // Allows for manipulation of hours without disturbing clock hours variable
+	std::string amPm = " AM"; // Placeholder for AM / PM, set to AM
+	std::ostringstream result;  // Create ostringstream variable
+
+	// Check to see if before or after noon
+	if (hours >= 12) {
+		amPm = " PM"; // Change to PM for afternoon values
+		tempHour = hours - 12; // Subtract 12 from afternoon values
 	}
 
-	void Clock::addSecond() {
-		// add one second
-		seconds ++;
-		// if the second count = 60, add a minute and set seconds to 0
-		if (seconds == 60) {
-			seconds = 0;
-			addMinute();
-		}
-	}
+	return composeResult(tempHour, minutes, seconds, amPm);
+}
 
-	string Clock::getTime24() {
-		// Variables
-		ostringstream result;
+std::string Clock::composeResult(int hours, int minutes, int seconds, std::string prefix) {
+	std::ostringstream result;  // Create ostringstream variable
 
-		// Compose result
-		result << setfill('0')
-			<< setw(2) << hours << ":"
-			<< setw(2) << minutes << ":"
-			<< setw(2) << seconds;
+	// Compose requested format, (hh:mm:ss AM/PM)
+	result << std::setfill('0')
+		<< std::setw(2) << hours << ":"
+		<< std::setw(2) << minutes << ":"
+		<< std::setw(2) << seconds << prefix;
 
-		return result.str();
-	}
-
-	string Clock::getTime12() {
-		// Variables
-		int tempHour = hours;
-		string amPm = "AM";
-		ostringstream result;
-
-		// Check to see if before or after noon
-		if (hours >= 12) {
-			amPm = "PM"; // Change to PM for afternoon values
-			tempHour = hours - 12; // Subtract 12 from afternoon values
-		}
-
-		// Compose result
-		result << setfill('0')
-			<< setw(2) << tempHour << ":"
-			<< setw(2) << minutes << ":"
-			<< setw(2) << seconds << " " << amPm;
-
-		return result.str();
-	}
+	return result.str(); // Return as string
+}
 
 
