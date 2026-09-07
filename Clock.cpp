@@ -5,7 +5,7 @@ CLASS -   Project 1 CS 210 - Chada Tech Clock
 
 PURPOSE - Clock object to be used in the main.cpp, isolates the functions and
           hides them from the main applications.
-*********************************************************************************/
+********************************************************************************/
 
 #include "Clock.h"
 #include <iomanip>
@@ -68,14 +68,17 @@ std::string Clock::getTime12() {
 	int tempHour = hours;
 	std::string amPm = " AM";
 
-	// If hours > 11, it's PM
+	// Set AM / PM
 	if (hours > 11) {
 		amPm = " PM";
 	}
 
-	// If hours > 12, need to subtract 12
-	if (hours > 12) {
-		tempHour = hours - 12;
+	// Get the hour, 12:00 will give us a 00
+	tempHour = hours % 12;
+
+	// Handle 12:00 pm 
+	if (tempHour == 0) {
+		tempHour = 12;
 	}
 
     // Send to composeResult() for formatting, return result

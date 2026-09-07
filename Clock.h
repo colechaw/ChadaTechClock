@@ -5,10 +5,10 @@ CLASS -   Project 1 CS 210 - Chada Tech Clock
 
 PURPOSE - *.h file for clock.cpp, it defines the variables and methods the object
           will use.
-*********************************************************************************/
+********************************************************************************/
 
 #pragma once
-#include <string> // Use string object
+#include <string>
 
 class Clock
 {
