@@ -8,27 +8,26 @@ PURPOSE - Create a clock that can be controlled by user input from menu,
           user selects 'exit', then end the program.
 *********************************************************************************/
 
-#include "Clock.h" // Reference clock header file
-#include <iostream> // Reference input/output stream library
-#include <string> // Bring string in to use with my functions
+#include "Clock.h"
+#include <iostream>
+#include <string>
 #include <cstdlib> // Reference to clear console window between choices
 
 // Function prototypes
 std::string drawMenu();
 std::string clockFace();
+int validateInput(int min, int max, std::string prompt);
 void initalizeClock();
 
 // Variables
-Clock myClock; // Create instance of Clock class
+Clock myClock;
 int userSelection; // Holds the user's menu selection
-int hours;
-int minutes;
-int seconds;
 
 int main() {
 
 	initalizeClock(); // Call function to initialize clock
 
+	// Loop until the user selects 4, exit
 	while (userSelection != 4) {
 
 		// Update display
@@ -36,8 +35,8 @@ int main() {
 		std::cout << clockFace() << std::endl; // Call function to draw clock
 		std::cout << drawMenu() << std::endl; // Call function to draw menu
 
-		// Capture user input
-		std::cin >> userSelection;
+		// Capture user input throught the validateInput() method
+		userSelection = validateInput(1, 4, "Select a choice from the menu: \n");
 
 		// Evaluate user input
 		switch (userSelection) {
@@ -55,18 +54,43 @@ int main() {
 	return 0;
 }
 
+
 // Creates clock object and sets the h/m/s after requesting them
 // from user when program starts
 void initalizeClock() {
-	std::cout << "Enter the hours 0-23:"; // Ask for hours
-	std::cin >> hours; // Get hours
-	std::cout << "Enter the minutes 0-59:"; // Ask for minutes
-	std::cin >> minutes; // Get minutes
-	std::cout << "Enter the seconds 0-59:"; // Ask for seconds
-	std::cin >> seconds; // Get seconds
 
-	myClock = Clock(hours, minutes, seconds); // Initialize myClock
+	// Variables
+	int hours;
+	int minutes;
+	int seconds;
+
+	// Validate input before assigning to variable
+	hours = validateInput(0, 23, "Please enter the hour\n Type a number between 0-23: \n");
+	minutes = validateInput(0, 59, "Please enter the minute\n Type a number between  0-59: \n");
+	seconds = validateInput(0, 59, "Please enter the second\n Type a number between  0-59: \n");
+    
+	// Initialize myClock
+	myClock = Clock(hours, minutes, seconds);
 }
+
+
+int validateInput(int min, int max, std::string prompt) {
+	
+	// Variables
+	int input;
+
+	std::cout << prompt;
+	std::cin >> input;
+
+	// Check that input is between min and max to validate
+	if ((input >= min) && (input <= max)) {
+		return input;
+	}
+
+	// If fail, set the time at 0
+	return 0;
+}
+
 
 // Print clock face to console
 std::string clockFace() {
