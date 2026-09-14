@@ -90,10 +90,11 @@ std::string Clock::getTime12() {
 std::string Clock::composeResult(int hours, int minutes, int seconds, std::string prefix) {
 	std::ostringstream result;
 
-	result << std::setfill('0') // Extra spaces appear as '0'
-		<< std::setw(2) << hours << ":" // Hour, two digits, followed by ':'
-		<< std::setw(2) << minutes << ":" // Minutes, two digits, followed by ':'
-		<< std::setw(2) << seconds << prefix; // Seconds, two digits, followed by AM / PM / nothing
+	result << std::setfill('0')
+		<< std::setw(2) << hours << ":" 
+		<< std::setw(2) << minutes << ":"
+		<< std::setw(2) << seconds 
+						<< prefix; // Followed by AM / PM / nothing
 
 	return result.str();
 }

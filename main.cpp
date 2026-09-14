@@ -14,8 +14,8 @@ PURPOSE - Create a clock that can be controlled by user input from menu,
 #include <cstdlib> // Reference to clear console window between choices
 
 // Function prototypes
-std::string drawMenu();
-std::string clockFace();
+void showMenu();
+void showClockFace();
 int validateInput(int min, int max, std::string prompt);
 void initalizeClock();
 
@@ -34,9 +34,9 @@ int main() {
 	while (userSelection != 4) {
 
 		// ****************** Update display *******************************
-		system("cls"); // Clear console window
-		std::cout << clockFace() << std::endl; // Call function to draw clock
-		std::cout << drawMenu() << std::endl; // Call function to draw menu
+		system("cls");
+		showClockFace();
+		showMenu();
 		// ******************************************************************
 
 		// Capture user input throught the validateInput() method
@@ -110,25 +110,27 @@ int validateInput(int min, int max, std::string prompt) {
 
 // *************************** Update Display from here down ***************************
 // Print clock face to console
-std::string clockFace() {
-	std::string result = "*************************   *************************\n";
-	result += "*     12-Hour Clock     *   *     24-Hour Clock     *\n";
-	result += "*      ";
-	result += myClock.getTime12();
-	result += "      *   *        ";
-	result += myClock.getTime24();
-	result += "       *\n";
-	result += "*************************   *************************\n";
-	return result;
+void showClockFace() {
+	std::cout 
+	<< "*************************   *************************\n"
+	<< "*     12-Hour Clock     *   *     24-Hour Clock     *\n"
+	<< "*      "
+	<< myClock.getTime12()
+	<< "      *   *        "
+	<< myClock.getTime24()
+	<< "       *\n"
+	<< "*************************   *************************\n"
+	<< std::endl;
 }
 
 // Print menu to console
-std::string drawMenu() {
-	std::string result = "*************************\n";
-	result += "* 1 - Add One Hour      *\n";
-	result += "* 2 - Add One Minute    *\n";
-	result += "* 3 - Add One Second    *\n";
-	result += "* 4 - Exit Program      *\n";
-	result += "*************************\n";
-	return result;
+void showMenu() {
+	std::cout
+		<< "*************************\n"
+		<< "* 1 - Add One Hour      *\n"
+		<< "* 2 - Add One Minute    *\n"
+		<< "* 3 - Add One Second    *\n"
+		<< "* 4 - Exit Program      *\n"
+		<< "*************************\n"
+		<< std::endl;
 }
