@@ -17,7 +17,7 @@ PURPOSE - Create a clock that can be controlled by user input from menu,
 void showMenu();
 void showClockFace();
 int validateInput(int min, int max, std::string prompt);
-void initalizeClock();
+void initializeClock();
 
 // Variables
 Clock myClock;
@@ -28,7 +28,7 @@ int main() {
 	int userSelection = 0; // Holds the user's menu selection
 
 	// Start the clock with h:m:s
-	initalizeClock();
+	initializeClock();
 
 	// Loop until the user selects 4, exit
 	while (userSelection != 4) {
@@ -39,7 +39,7 @@ int main() {
 		showMenu();
 		// ******************************************************************
 
-		// Capture user input throught the validateInput() method
+		// Capture user input through the validateInput() method
 		userSelection = validateInput(1, 4, "Select a choice from the menu: \n");
 
 		// Evaluate user input, call myClock functions
@@ -61,7 +61,7 @@ int main() {
 
 // Creates clock object and sets the h/m/s after requesting them
 // from user when program starts
-void initalizeClock() {
+void initializeClock() {
 
 	// Get and validate input
 	int hours = validateInput(0, 23, 
@@ -79,11 +79,12 @@ void initalizeClock() {
 // Asks for and returns choice if passes validation
 int validateInput(int min, int max, std::string prompt) {
 	
-	// Variables
-	int input = 0;
 
 	// Loop until conditions met
-	while (!input) {
+	while (true) {
+
+		// Variables
+		int input = 0;
 
 		std::cout << prompt;
 		std::cin >> input;
@@ -102,9 +103,6 @@ int validateInput(int min, int max, std::string prompt) {
 		input = 0;
 		std::cout << "Invalid choice\n";
 	}
-
-	// Should not reach this
-	return 9999; // test value
 }
 
 
